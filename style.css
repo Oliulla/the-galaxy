@@ -7,3 +7,14 @@
 .nav-bg{
     background-color: #0D1721;
 }
+
+/* hover over link */
+.link-hover:hover{
+    border-bottom: 2px solid #0000ff;
+    transition: ease-in-out 1s;
+}
+
+/* categories background */
+.categories-bg {
+    background-color: #0D1721;
+}
