@@ -26,13 +26,13 @@ const showNews = async(newsId) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${newsId}`);
     const data = await res.json();
     const news = data.data;
-    showCategoriesNews(news)
+    showCategoriesNews(news);
 }
 
 const showCategoriesNews = async(news) => {
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = ``;
-
+    
     news.forEach(eachNews => {
         // console.log(eachNews);
 
@@ -45,7 +45,7 @@ const showCategoriesNews = async(news) => {
         eachNewsCard.innerHTML = `
         <div class="row p-2 p-lg-4">
             <div class="col-md-4">
-                <img src="${thumbnail_url}" class="img-fluid w-100 h-100" alt="">
+                <img src="${thumbnail_url}" class="img-fluid w-100 h-100" alt="News thumbnail">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -54,11 +54,11 @@ const showCategoriesNews = async(news) => {
                     <div class="h-100 w-100 d-flex align-items-center ms-2 ms-lg-3 mt-4 mt-lg-5">
                         <div class="w-25">
                             <div class="d-flex align-items-center w-100">
-                                <img src="${img}" class="w-25 border-0 rounded-circle" alt="${title}Image">
+                                <img src="${img}" class="w-25 border-0 rounded-circle" alt="${name} Image">
                                 <div class="mt-lg-3 ms-2">
                                     <h6><small>${name ? name : 'No data founds'}</small></h6>
                                     <p class="d-none d-lg-block">
-                                        <small>${published_date ? published_date : 'No data founds'}</small>
+                                        <small class="text-muted">${published_date ? published_date : 'No data founds'}</small>
                                     </p>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@ const readMore = async (id) => {
 
 const readMoreDetails = async(news) => {
 
-    console.log(news)
+    // console.log(news)
 
     const {title, thumbnail_url, details, total_view, rating, author} = news;
     const {img, name, published_date} = author;
@@ -106,34 +106,34 @@ const readMoreDetails = async(news) => {
     const modaBody = document.getElementById('modaBody');
     modaBody.classList.add('bg-success')
     modaBody.innerHTML = `
-        <img src="${thumbnail_url}" class="w-100">
-        <p class="card-text mt-3 text-white-50">${details ?  details : 'No News Founds'}</p>
-        <div class="h-100 w-100 d-flex align-items-center ms-2 ms-lg-3 mt-4 mt-lg-5">
-            <div class="w-25">
-                <div class="d-flex align-items-center w-100">
-                    <img src="${img}" class="w-25 border-0 rounded-circle" alt="${title}Image">
-                    <div class="mt-lg-3 ms-2 text-light">
-                        <h6><small>${name ? name : 'No data founds'}</small></h6>
-                        <p class="d-none d-lg-block">
-                            <small>${published_date ? published_date : 'No data founds'}</small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-75">
-                <div class="d-flex justify-content-around">
-                    <div class="text-light">
-                        <h6>Total Views</h6>
-                        <i class="fa-solid fa-eye"></i>
-                        <P class="fw-semibold d-inline text-light">${total_view ? total_view+'M' : 'No data founds'}</p>
-                    </div>
-                    <div>
-                        <P class="fw-semibold text-warning">Ratings: ${rating.number}</p>
-                        <P class="fw-semibold text-warning">Badge: ${rating.badge}</p>
-                    </div>
+    <img src="${thumbnail_url}" class="w-100">
+    <p class="card-text mt-3 text-white">${details ?  details : 'No News Founds'}</p>
+    <div class="h-100 w-100 d-flex align-items-center ms-2 ms-lg-3 mt-4 mt-lg-5">
+        <div class="w-25">
+            <div class="d-flex align-items-center w-100">
+                <img src="${img}" class="w-25 border-0 rounded-circle" alt="${name}Image">
+                <div class="mt-lg-3 ms-2 text-light">
+                    <h6><small>${name ? name : 'No data founds'}</small></h6>
+                    <p class="d-none d-lg-block">
+                        <small>${published_date ? published_date : 'No data founds'}</small>
+                    </p>
                 </div>
             </div>
         </div>
+        <div class="w-75">
+            <div class="d-flex justify-content-around">
+                <div class="text-light">
+                    <h6>Total Views</h6>
+                    <i class="fa-solid fa-eye"></i>
+                    <P class="fw-semibold d-inline text-light">${total_view ? total_view+'M' : 'No data founds'}</p>
+                </div>
+                <div>
+                    <P class="fw-semibold text-warning">Ratings: ${rating.number}</p>
+                    <P class="fw-semibold text-warning">Badge: ${rating.badge}</p>
+                </div>
+            </div>
+        </div>
+    </div>
     `
 }
 

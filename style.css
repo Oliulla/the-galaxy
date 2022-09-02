@@ -19,3 +19,10 @@
 .categories-bg {
     background-color: #0D1721;
 }
+
+/* footer */
+footer{
+    background-color: #333;
+    color: #fafafa;
+    height: 60vh;
+}
