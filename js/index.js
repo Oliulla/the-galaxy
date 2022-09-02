@@ -31,9 +31,9 @@ const showCategoriesNews = async(news) => {
     newsContainer.textContent = ``;
 
     news.forEach(eachNews => {
-        console.log(eachNews);
+        // console.log(eachNews);
 
-        const {thumbnail_url, title, details, total_view, author} = eachNews;
+        const {thumbnail_url, title, details, total_view, author, rating, _id} = eachNews;
         const {img, name, published_date} = author;
 
         const eachNewsCard = document.createElement('div');
@@ -53,18 +53,21 @@ const showCategoriesNews = async(news) => {
                             <div class="d-flex align-items-center w-100">
                                 <img src="${img}" class="w-25 border-0 rounded-circle" alt="">
                                 <div class="mt-lg-5 ms-2">
-                                    <h6>${name}</h6>
-                                    <p class="d-none d-lg-block"><small>${published_date}</small></p>
+                                    <h6>${name ? name : 'Not Found'}</h6>
+                                    <p class="d-none d-lg-block"><small>${published_date ? published_date : 'Not Found'}</small></p>
                                 </div>
                             </div>
                         </div>
                         <div class="w-75">
                             <div class="d-flex justify-content-around">
-                                <div class="">
-                                    <P class="fw-semibold">${total_view}M</p>
+                                <div class="d-inline">
+                                    <i class="fa-solid fa-eye"></i>
+                                    <P class="fw-semibold">${total_view ? total_view+'M' : 'Not Found'}</p>
                                 </div>
-                                <div class="">abcd</div>
-                                <div class="">abcd</div>
+                                <div class="">Ratings: ${rating.number}</div>
+                                <div class="text-info">
+                                    <a onclick="readMore('${_id}')" class="btn btn-outline-info text-center"><Small>Read more</small> <i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,6 +77,17 @@ const showCategoriesNews = async(news) => {
         `
         newsContainer.appendChild(eachNewsCard)
     })
+}
+
+const readMore = async (id) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
+    const data = await res.json();
+    const detailsNews = data.data[0];
+    readMoreDetails(detailsNews);
+}
+
+const readMoreDetails = async(news) => {
+    console.log(news)
 }
 
 loadNewsCategories()
