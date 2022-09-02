@@ -13,13 +13,16 @@ const displayCategories = async(categories) => {
         const {category_name, category_id} = category;
 
         const listLink = document.createElement('li');
-        listLink.innerHTML = `<a onclick="showNews('${category_id}')" class="text-decoration-none text-white link-hover">${category_name}</a>`;
+        listLink.innerHTML = `<a onclick="showNews('${category_id}')" class="text-decoration-none text-white link-hover px-3">${category_name}</a>`;
 
         categoriesContainer.appendChild(listLink);
     })
 }
 
 const showNews = async(newsId) => {
+
+    // console.log(typeof(newsId))
+
     const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${newsId}`);
     const data = await res.json();
     const news = data.data;
@@ -51,10 +54,12 @@ const showCategoriesNews = async(news) => {
                     <div class="h-100 w-100 d-flex align-items-center ms-2 ms-lg-3 mt-4 mt-lg-5">
                         <div class="w-25">
                             <div class="d-flex align-items-center w-100">
-                                <img src="${img}" class="w-25 border-0 rounded-circle" alt="">
-                                <div class="mt-lg-5 ms-2">
-                                    <h6>${name ? name : 'Not Found'}</h6>
-                                    <p class="d-none d-lg-block"><small>${published_date ? published_date : 'Not Found'}</small></p>
+                                <img src="${img}" class="w-25 border-0 rounded-circle" alt="${title}Image">
+                                <div class="mt-lg-3 ms-2">
+                                    <h6><small>${name ? name : 'No data founds'}</small></h6>
+                                    <p class="d-none d-lg-block">
+                                        <small>${published_date ? published_date : 'No data founds'}</small>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -62,11 +67,15 @@ const showCategoriesNews = async(news) => {
                             <div class="d-flex justify-content-around">
                                 <div class="d-inline">
                                     <i class="fa-solid fa-eye"></i>
-                                    <P class="fw-semibold">${total_view ? total_view+'M' : 'Not Found'}</p>
+                                    <P class="fw-semibold d-inline">${total_view ? total_view+'M' : 'No data founds'}</p>
                                 </div>
-                                <div class="">Ratings: ${rating.number}</div>
+                                <div>
+                                    <P class="fw-semibold text-warning">Ratings: ${rating.number}</p>
+                                </div>
                                 <div class="text-info">
-                                    <a onclick="readMore('${_id}')" class="btn btn-outline-info text-center"><Small>Read more</small> <i class="fa-solid fa-arrow-right"></i></a>
+                                    <a onclick="readMore('${_id}')" class="btn btn-outline-info d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#readMoreModal">
+                                        <Small>Read more</small><i class="fa-solid fa-arrow-right ms-2 mt-1"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +96,45 @@ const readMore = async (id) => {
 }
 
 const readMoreDetails = async(news) => {
+
     console.log(news)
+
+    const {title, thumbnail_url, details, total_view, rating, author} = news;
+    const {img, name, published_date} = author;
+
+    document.querySelector('.news-modal-title').innerText = `${title}`;
+    const modaBody = document.getElementById('modaBody');
+    modaBody.classList.add('bg-success')
+    modaBody.innerHTML = `
+        <img src="${thumbnail_url}" class="w-100">
+        <p class="card-text mt-3 text-white-50">${details ?  details : 'No News Founds'}</p>
+        <div class="h-100 w-100 d-flex align-items-center ms-2 ms-lg-3 mt-4 mt-lg-5">
+            <div class="w-25">
+                <div class="d-flex align-items-center w-100">
+                    <img src="${img}" class="w-25 border-0 rounded-circle" alt="${title}Image">
+                    <div class="mt-lg-3 ms-2 text-light">
+                        <h6><small>${name ? name : 'No data founds'}</small></h6>
+                        <p class="d-none d-lg-block">
+                            <small>${published_date ? published_date : 'No data founds'}</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-75">
+                <div class="d-flex justify-content-around">
+                    <div class="text-light">
+                        <h6>Total Views</h6>
+                        <i class="fa-solid fa-eye"></i>
+                        <P class="fw-semibold d-inline text-light">${total_view ? total_view+'M' : 'No data founds'}</p>
+                    </div>
+                    <div>
+                        <P class="fw-semibold text-warning">Ratings: ${rating.number}</p>
+                        <P class="fw-semibold text-warning">Badge: ${rating.badge}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
 }
 
 loadNewsCategories()
