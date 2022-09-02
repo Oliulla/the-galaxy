@@ -15,10 +15,6 @@
     cursor: pointer;
 }
 
-.link-hover:active {
-    color: #0000ff;
-}
-
 /* categories background */
 .categories-bg {
     background-color: #0D1721;
