@@ -12,6 +12,11 @@
 .link-hover:hover{
     border-bottom: 2px solid #0000ff;
     transition: ease-in-out 1s;
+    cursor: pointer;
+}
+
+.link-hover:active {
+    color: #0000ff;
 }
 
 /* categories background */
