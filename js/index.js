@@ -122,7 +122,9 @@ const showCategoriesNews = async(news) => {
 // add progress Spinner while loading data
 const progressSpinner = (isLoading) => {
     const spinnerContainer = document.getElementById('spinner-container');
+    const newsContainer = document.getElementById('news-container');
     isLoading ? spinnerContainer.classList.remove('d-none') : spinnerContainer.classList.add('d-none');
+    isLoading ? newsContainer.classList.add('d-none') : newsContainer.classList.remove('d-none');
 }
 
 // load news by id to show details
