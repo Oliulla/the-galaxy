@@ -26,3 +26,12 @@ footer{
     color: #fafafa;
     height: 50vh;
 }
+
+@media only screen and (max-width: 400px) {
+    #card-sm-text {
+        font-size: 0.5rem;
+    }
+    #card-sm-text a {
+        font-size: 0.5rem;
+    }
+}

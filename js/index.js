@@ -49,7 +49,7 @@ const showNews = async(newsCategoryId, categoryName) => {
         foundNewsQuantity(news, categoryName)
     }
     catch(err) {
-        console(err)
+        console.log(err)
     }
 }
 
@@ -66,7 +66,7 @@ const showCategoriesNews = async(news) => {
         eachNewsCard.classList.add('card', 'mb-3', 'w-100', 'text-white', 'bg-secondary');
 
         eachNewsCard.innerHTML = `
-        <div class="row p-2 p-lg-4">
+        <div class="row p-2 p-lg-4" id="card-sm-text">
             <div class="col-md-4">
                 <img src="${thumbnail_url}" class="img-fluid w-100 h-100" alt="News thumbnail">
             </div>
