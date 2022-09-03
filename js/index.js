@@ -8,12 +8,15 @@ const loadNewsCategories = async() => {
     }
     catch(err) {
         this.document.body.innerHTML = `
-        <h3 class="text-center mt-5">sorry, this site can't be reached</h3>
+        <h5 class="text-center mt-5">404 Not Found</h5>
+        <h3 class="text-center">sorry, this site can't be reached</h3>
         <h5 class="text-center">Please try again...</h5>
         `
+        alert(`sorry, no data founds. please try again`);
     }
 }
 
+// display categories as link
 const displayCategories = async(categories) => {
 
     const categoriesContainer = document.getElementById('categories-container');
@@ -28,6 +31,7 @@ const displayCategories = async(categories) => {
     })
 }
 
+// show how much news exist based on categories
 const foundNewsQuantity = async (news, categoryName) => {
     const foundTotalText = document.getElementById('found-total');
     const foundContainer = document.getElementById('found-container');
@@ -37,6 +41,7 @@ const foundNewsQuantity = async (news, categoryName) => {
     lenOfNews ? foundTotalText.innerText = `${lenOfNews} news found for ${categoryName}` : foundTotalText.innerText = `No news available now for ${categoryName}`;
 }
 
+// load all news as category wise
 const showNews = async(newsCategoryId, categoryName) => {
     try {
         progressSpinner(true);
@@ -53,6 +58,7 @@ const showNews = async(newsCategoryId, categoryName) => {
     }
 }
 
+// show category news
 const showCategoriesNews = async(news) => {
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = ``;
@@ -73,7 +79,7 @@ const showCategoriesNews = async(news) => {
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">${title}</h5>
-                    <p class="card-text mt-3">${details.length > 250 ? details.slice(0, 350) : details}...</p>
+                    <p class="card-text mt-3">${details.length > 350 ? details.slice(0, 350) : details}...</p>
                     <div class="h-100 w-100 d-flex align-items-center ms-2 ms-lg-3 mt-4 mt-lg-5">
                         <div class="w-25">
                             <div class="d-flex align-items-center w-100">
@@ -112,11 +118,13 @@ const showCategoriesNews = async(news) => {
     progressSpinner(false)
 }
 
+// add progress Spinner while loading data
 const progressSpinner = (isLoading) => {
     const spinnerContainer = document.getElementById('spinner-container');
     isLoading ? spinnerContainer.classList.remove('d-none') : spinnerContainer.classList.add('d-none');
 }
 
+// load news by id to show details
 const readMore = async (id) => {
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
@@ -129,6 +137,7 @@ const readMore = async (id) => {
     }
 }
 
+// show details set on a modal
 const readMoreDetails = async(news) => {
 
     const {title, thumbnail_url, details, total_view, rating, author} = news;
@@ -170,4 +179,5 @@ const readMoreDetails = async(news) => {
     `
 }
 showNews('08', 'All News')
+
 loadNewsCategories()
