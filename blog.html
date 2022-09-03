@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Read Blogs</title>
+        <title>Top Blogs</title>
         <!-- Fontawesome kit -->
         <script src="https://kit.fontawesome.com/684444d9c5.js" crossorigin="anonymous"></script>
 
@@ -24,8 +24,8 @@
                     <a class="navbar-brand text-white fw-bolder fs-4" href="#">The Galaxy</a>
                     <div class="d-flex flex-column flex-md-row flex-lg-row">
                         <ul class="d-flex gap-2 gap-lg-3 pt-2">
-                            <li class="list-unstyled"><a href="#" class="text-decoration-none font-20 text-info link-hover">News</a></li>
-                            <li class="list-unstyled"><a id="blogs" href="blog.html" class="text-decoration-none font-20 text-secondary link-hover">Blog</a></li>
+                            <li class="list-unstyled"><a href="index.html" class="text-decoration-none font-20 text-info link-hover">News</a></li>
+                            <li class="list-unstyled"><a href="blog.html" class="text-decoration-none font-20 text-secondary link-hover">Blog</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
             <!-- Navbar ends -->
         </header>
         <main>
-            <!-- blogs container -->
+            <!-- blogs container starts-->
             <section class="mt-3 mb-5 mx-auto">
                 <div class="text-center">
                     <h3>Top Blogs</h3>
@@ -46,32 +46,50 @@
                         </p>
                     </div>
                     <div class="container bg-secondary py-2 px-5 mb-4 text-light rounded-3">
-                        <h4 class="border-1 border-bottom border-info">Differences Between var, let and const</h4>
+                        <h4 class="border-1 border-bottom border-info">Differences Between Regular Function And Arrow Function</h4>
                         <p>
-                            var declarations are globally scoped or function scoped while let and const are block scoped.
-                            var variables can be updated and re-declared within its scope; let variables can be updated but not re-declared; 
-                            const variables can neither be updated nor re-declared. They are all hoisted to the top of their scope.
+                            Regular functions created using function declarations or expressions are constructible and callable. 
+                            Since regular functions are constructible, they can be called using the new keyword. 
+                            However, the arrow functions are only callable and not constructible,
+                            arrow functions can never be used as constructor functions.
                         </p>
                     </div>
                     <div class="container bg-secondary py-2 px-5 mb-4 text-light rounded-3">
-                        <h4 class="border-1 border-bottom border-info">Differences Between var, let and const</h4>
+                        <h4 class="border-1 border-bottom border-info">Differences Between map(), forEach(), filter() and find()</h4>
                         <p>
-                            var declarations are globally scoped or function scoped while let and const are block scoped.
-                            var variables can be updated and re-declared within its scope; let variables can be updated but not re-declared; 
-                            const variables can neither be updated nor re-declared. They are all hoisted to the top of their scope.
+                            <em class="text-white fs-4">array.map()</em> executes the same code on every element in an array and returns a new array with the updated elements.
+                        </p>
+                        <p>
+                            <em class="text-white fs-4">array.forEach()</em> is used to execute the same code on every element in an array but does not change the array and it returns undefined.
+                        </p>
+                        <p>
+                            <em class="text-white fs-4">array.filter()</em> checks every element in an array to see if it meets a certain criteria and returns a new array with the elements that return truthy for the criteria.
+                        </p>
+                        <p>
+                            <em class="text-white fs-4">array.find()</em> checks every element in an array to see if it meets a certain criteria and returns first element from an array. 
                         </p>
                     </div>
                     <div class="container bg-secondary py-2 px-5 mb-4 text-light rounded-3">
-                        <h4 class="border-1 border-bottom border-info">Differences Between var, let and const</h4>
+                        <h4 class="border-1 border-bottom border-info">Why You Use Template Literal In JavaScript</h4>
                         <p>
-                            var declarations are globally scoped or function scoped while let and const are block scoped.
-                            var variables can be updated and re-declared within its scope; let variables can be updated but not re-declared; 
-                            const variables can neither be updated nor re-declared. They are all hoisted to the top of their scope.
+                            Template literals are literals delimited with backtick (`) characters, allowing for multi-line strings, 
+                            for string interpolation with embedded expressions, and for special constructs called tagged templates.
+                        </p>
+                        <p>
+                            Template literals are sometimes informally called template strings, because they are used most commonly for
+                            string interpolation (to create strings by doing substitution of placeholders). However, a tagged template 
+                            literal may not result in a string; it can be used with a custom tag function to perform whatever operations you 
+                            want on the different parts of the template literal.
+                        </p>
+                        </p>
+                            Template strings are a powerful feature of modern JavaScript released in ES6. 
+                            It lets us insert/interpolate variables and expressions into strings without needing to concatenate like in older 
+                            versions of JavaScript. It allows us to create strings that are complex and contain dynamic elements.
                         </p>
                     </div>
                 </div>
             </section>
-
+            <!-- blogs container ends -->
         </main>
         <footer class="w-100 mt-5 py-3 py-lg-5">
             <p class="text-center">Copyright&copy;2022.All Rights Reserved By <em class="text-info fw-semibold fs-4">The Galaxy</em></p>
