@@ -11,16 +11,14 @@ const loadNewsCategories = async() => {
         <h3 class="text-center mt-5">sorry, this site can't be reached</h3>
         <h5 class="text-center">Please try again...</h5>
         `
-        // console.log(this.document.body.textContent=`This site can't be reached`)
     }
 }
 
 const displayCategories = async(categories) => {
-    const categoriesContainer = document.getElementById('categories-container');
 
+    const categoriesContainer = document.getElementById('categories-container');
     categories.forEach(category => {
         const {category_name, category_id} = category;
-        
 
         const listLink = document.createElement('li');
         listLink.classList.add('my-2')
@@ -31,9 +29,7 @@ const displayCategories = async(categories) => {
 }
 
 const foundNewsQuantity = async (news, categoryName) => {
-    // console.log(news.length,categoryName)
-
-    const foundTotalText = document.getElementById('found-total')
+    const foundTotalText = document.getElementById('found-total');
     const foundContainer = document.getElementById('found-container');
     const lenOfNews = news.length;
 
@@ -42,7 +38,6 @@ const foundNewsQuantity = async (news, categoryName) => {
 }
 
 const showNews = async(newsCategoryId, categoryName) => {
-    // console.log(newsCategoryId)
     try {
         progressSpinner(true);
 
@@ -61,17 +56,11 @@ const showNews = async(newsCategoryId, categoryName) => {
 const showCategoriesNews = async(news) => {
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = ``;
-    console.log(news)
 
     news.sort((a, b) => (a.total_view > b.total_view) ? -1 : 1);
-    
-    const newArr = [];
     news.forEach(eachNews => {
-
         const {thumbnail_url, title, details, total_view, author, rating, _id} = eachNews;
-        
         const {img, name, published_date} = author;
-        // console.log(newArr)
 
         const eachNewsCard = document.createElement('div');
         eachNewsCard.classList.add('card', 'mb-3', 'w-100', 'text-white', 'bg-secondary');
@@ -90,9 +79,9 @@ const showCategoriesNews = async(news) => {
                             <div class="d-flex align-items-center w-100">
                                 <img src="${img}" class="w-25 border-0 rounded-circle" alt="${name} Image">
                                 <div class="mt-lg-3 ms-2">
-                                    <h6><small>${name ? name : 'No data founds'}</small></h6>
+                                    <h6><small>${name ? name : 'No data available'}</small></h6>
                                     <p class="d-none d-lg-block">
-                                        <small class="text-light">${published_date ? published_date : 'No data founds'}</small>
+                                        <small class="text-light">${published_date ? published_date : 'No data available'}</small>
                                     </p>
                                 </div>
                             </div>
@@ -101,10 +90,10 @@ const showCategoriesNews = async(news) => {
                             <div class="d-flex justify-content-around">
                                 <div class="d-inline">
                                     <i class="fa-solid fa-eye"></i>
-                                    <P class="fw-semibold d-inline">${total_view ? total_view+'M' : 'No data founds'}</p>
+                                    <P class="fw-semibold d-inline">${total_view ? total_view+'M' : 'No data available'}</p>
                                 </div>
                                 <div>
-                                    <P class="fw-semibold text-warning">Ratings: ${rating.number ? rating.number : 'No data founds'}</p>
+                                    <P class="fw-semibold text-warning">Ratings: ${rating.number ? rating.number : 'No data available'}</p>
                                 </div>
                                 <div class="text-info">
                                     <a onclick="readMore('${_id}')" class="btn btn-outline-info d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#readMoreModal">
@@ -142,14 +131,13 @@ const readMore = async (id) => {
 
 const readMoreDetails = async(news) => {
 
-    // console.log(news)
-
     const {title, thumbnail_url, details, total_view, rating, author} = news;
     const {img, name, published_date} = author;
 
     document.querySelector('.news-modal-title').innerText = `${title}`;
     const modaBody = document.getElementById('modaBody');
     modaBody.classList.add('bg-success')
+    
     modaBody.innerHTML = `
     <img src="${thumbnail_url}" class="w-100">
     <p class="card-text mt-3 text-white">${details ?  details : 'No News Founds'}</p>
@@ -158,9 +146,9 @@ const readMoreDetails = async(news) => {
             <div class="d-flex align-items-center w-100">
                 <img src="${img}" class="w-25 border-0 rounded-circle" alt="${name} Image">
                 <div class="mt-lg-3 ms-2 text-light">
-                    <h6><small>${name ? name : 'No data founds'}</small></h6>
+                    <h6><small>${name ? name : 'No data available'}</small></h6>
                     <p class="d-none d-lg-block">
-                        <small>${published_date ? published_date : 'No data founds'}</small>
+                        <small>${published_date ? published_date : 'No data available'}</small>
                     </p>
                 </div>
             </div>
@@ -170,11 +158,11 @@ const readMoreDetails = async(news) => {
                 <div class="text-light">
                     <h6>Total Views</h6>
                     <i class="fa-solid fa-eye"></i>
-                    <P class="fw-semibold d-inline text-light">${total_view ? total_view+'M' : 'No data founds'}</p>
+                    <P class="fw-semibold d-inline text-light">${total_view ? total_view+'M' : 'No data available'}</p>
                 </div>
                 <div>
-                    <P class="fw-semibold text-warning">Ratings: ${rating.number ? rating.number : 'No data founds'}</p>
-                    <P class="fw-semibold text-warning">Badge: ${rating.badge ? rating.badge : 'No data founds'}</p>
+                    <P class="fw-semibold text-warning">Ratings: ${rating.number ? rating.number : 'No data available'}</p>
+                    <P class="fw-semibold text-warning">Badge: ${rating.badge ? rating.badge : 'No data available'}</p>
                 </div>
             </div>
         </div>
@@ -182,5 +170,4 @@ const readMoreDetails = async(news) => {
     `
 }
 showNews('08', 'All News')
-
 loadNewsCategories()
