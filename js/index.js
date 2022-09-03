@@ -1,9 +1,18 @@
 // load news categories
 const loadNewsCategories = async() => {
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/categories`);
-    const data = await res.json();
-    const categories = data.data.news_category;
-    displayCategories(categories);
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/categories`);
+        const data = await res.json();
+        const categories = data.data.news_category;
+        displayCategories(categories);
+    }
+    catch(err) {
+        this.document.body.innerHTML = `
+        <h3 class="text-center mt-5">sorry, this site can't be reached</h3>
+        <h5 class="text-center">Please try again...</h5>
+        `
+        // console.log(this.document.body.textContent=`This site can't be reached`)
+    }
 }
 
 const displayCategories = async(categories) => {
@@ -21,25 +30,32 @@ const displayCategories = async(categories) => {
     })
 }
 
-const newsFoundDetail = async (news, categoryName) => {
+const foundNewsQuantity = async (news, categoryName) => {
     // console.log(news.length,categoryName)
+
     const foundTotalText = document.getElementById('found-total')
-    
     const foundContainer = document.getElementById('found-container');
     const lenOfNews = news.length;
+
     lenOfNews ? foundContainer.classList.remove('d-none') : foundContainer.classList.remove('d-none');
     foundTotalText.innerText = `${lenOfNews} news found for ${categoryName}`;
 }
 
 const showNews = async(newsCategoryId, categoryName) => {
     // console.log(newsCategoryId)
+    try {
+        progressSpinner(true);
 
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${newsCategoryId}`);
-    const data = await res.json();
-    const news = data.data;
-    showCategoriesNews(news);
-
-    newsFoundDetail(news, categoryName)
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${newsCategoryId}`);
+        const data = await res.json();
+        const news = data.data;
+        showCategoriesNews(news);
+    
+        foundNewsQuantity(news, categoryName)
+    }
+    catch(err) {
+        console(err)
+    }
 }
 
 const showCategoriesNews = async(news) => {
@@ -53,7 +69,7 @@ const showCategoriesNews = async(news) => {
         const {img, name, published_date} = author;
 
         const eachNewsCard = document.createElement('div');
-        eachNewsCard.classList.add('card', 'mb-3', 'w-100');
+        eachNewsCard.classList.add('card', 'mb-3', 'w-100', 'text-dark');
 
         eachNewsCard.innerHTML = `
         <div class="row p-2 p-lg-4">
@@ -99,13 +115,24 @@ const showCategoriesNews = async(news) => {
         `
         newsContainer.appendChild(eachNewsCard)
     })
+    progressSpinner(false)
+}
+
+const progressSpinner = (isLoading) => {
+    const spinnerContainer = document.getElementById('spinner-container');
+    isLoading ? spinnerContainer.classList.remove('d-none') : spinnerContainer.classList.add('d-none');
 }
 
 const readMore = async (id) => {
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
-    const data = await res.json();
-    const detailsNews = data.data[0];
-    readMoreDetails(detailsNews);
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
+        const data = await res.json();
+        const detailsNews = data.data[0];
+        readMoreDetails(detailsNews);
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
 const readMoreDetails = async(news) => {
