@@ -2,8 +2,8 @@
 const loadNewsCategories = async() => {
     const res = await fetch(`https://openapi.programming-hero.com/api/news/categories`);
     const data = await res.json();
-    const categoriesArr = data.data.news_category;
-    displayCategories(categoriesArr);
+    const categories = data.data.news_category;
+    displayCategories(categories);
 }
 
 const displayCategories = async(categories) => {
@@ -11,22 +11,34 @@ const displayCategories = async(categories) => {
 
     categories.forEach(category => {
         const {category_name, category_id} = category;
+        
 
         const listLink = document.createElement('li');
-        listLink.innerHTML = `<a onclick="showNews('${category_id}')" class="text-decoration-none text-white link-hover px-3">${category_name}</a>`;
+        listLink.innerHTML = `<a onclick="showNews('${category_id}', '${category_name}')" class="text-decoration-none text-white link-hover px-3">${category_name}</a>`;
 
         categoriesContainer.appendChild(listLink);
     })
 }
 
-const showNews = async(newsId) => {
+const newsFoundDetail = async (news, categoryName) => {
+    // console.log(news.length,categoryName)
+    const foundTotalText = document.getElementById('found-total')
+    
+    const foundContainer = document.getElementById('found-container');
+    const lenOfNews = news.length;
+    lenOfNews ? foundContainer.classList.remove('d-none') : foundContainer.classList.remove('d-none');
+    foundTotalText.innerText = `${lenOfNews} items found for category ${categoryName}`;
+}
 
-    // console.log(typeof(newsId))
+const showNews = async(newsCategoryId, categoryName) => {
+    // console.log(typeof(newsCategoryId))
 
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${newsId}`);
+    const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${newsCategoryId}`);
     const data = await res.json();
     const news = data.data;
     showCategoriesNews(news);
+
+    newsFoundDetail(news, categoryName)
 }
 
 const showCategoriesNews = async(news) => {
