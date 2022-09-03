@@ -12,7 +12,6 @@ const loadNewsCategories = async() => {
         <h3 class="text-center">sorry, this site can't be reached</h3>
         <h5 class="text-center">Please try again...</h5>
         `
-        alert(`sorry, no data founds. please try again`);
     }
 }
 
@@ -54,7 +53,7 @@ const showNews = async(newsCategoryId, categoryName) => {
         foundNewsQuantity(news, categoryName)
     }
     catch(err) {
-        alert(`sorry, no data founds. please try again.`)
+        console.log(err)
     }
 }
 
@@ -136,7 +135,7 @@ const readMore = async(id) => {
         readMoreDetails(detailsNews);
     }
     catch(err) {
-        alert(`sorry, no data founds. please try again.`)
+        console.log(err)
     }
 }
 
