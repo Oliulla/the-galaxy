@@ -38,7 +38,7 @@ const foundNewsQuantity = async (news, categoryName) => {
     const lenOfNews = news.length;
 
     lenOfNews ? foundContainer.classList.remove('d-none') : foundContainer.classList.remove('d-none');
-    foundTotalText.innerText = `${lenOfNews} news found for ${categoryName}`;
+    lenOfNews ? foundTotalText.innerText = `${lenOfNews} news found for ${categoryName}` : foundTotalText.innerText = `No news available now for ${categoryName}`;
 }
 
 const showNews = async(newsCategoryId, categoryName) => {
@@ -61,15 +61,20 @@ const showNews = async(newsCategoryId, categoryName) => {
 const showCategoriesNews = async(news) => {
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = ``;
+    console.log(news)
+
+    news.sort((a, b) => (a.total_view > b.total_view) ? -1 : 1);
     
+    const newArr = [];
     news.forEach(eachNews => {
-        // console.log(eachNews);
 
         const {thumbnail_url, title, details, total_view, author, rating, _id} = eachNews;
+        
         const {img, name, published_date} = author;
+        // console.log(newArr)
 
         const eachNewsCard = document.createElement('div');
-        eachNewsCard.classList.add('card', 'mb-3', 'w-100', 'text-dark');
+        eachNewsCard.classList.add('card', 'mb-3', 'w-100', 'text-white', 'bg-secondary');
 
         eachNewsCard.innerHTML = `
         <div class="row p-2 p-lg-4">
@@ -87,7 +92,7 @@ const showCategoriesNews = async(news) => {
                                 <div class="mt-lg-3 ms-2">
                                     <h6><small>${name ? name : 'No data founds'}</small></h6>
                                     <p class="d-none d-lg-block">
-                                        <small class="text-muted">${published_date ? published_date : 'No data founds'}</small>
+                                        <small class="text-light">${published_date ? published_date : 'No data founds'}</small>
                                     </p>
                                 </div>
                             </div>
@@ -99,7 +104,7 @@ const showCategoriesNews = async(news) => {
                                     <P class="fw-semibold d-inline">${total_view ? total_view+'M' : 'No data founds'}</p>
                                 </div>
                                 <div>
-                                    <P class="fw-semibold text-warning">Ratings: ${rating.number}</p>
+                                    <P class="fw-semibold text-warning">Ratings: ${rating.number ? rating.number : 'No data founds'}</p>
                                 </div>
                                 <div class="text-info">
                                     <a onclick="readMore('${_id}')" class="btn btn-outline-info d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#readMoreModal">
@@ -151,7 +156,7 @@ const readMoreDetails = async(news) => {
     <div class="h-100 w-100 d-flex align-items-center ms-2 ms-lg-3 mt-4 mt-lg-5">
         <div class="w-25">
             <div class="d-flex align-items-center w-100">
-                <img src="${img}" class="w-25 border-0 rounded-circle" alt="${name}Image">
+                <img src="${img}" class="w-25 border-0 rounded-circle" alt="${name} Image">
                 <div class="mt-lg-3 ms-2 text-light">
                     <h6><small>${name ? name : 'No data founds'}</small></h6>
                     <p class="d-none d-lg-block">
@@ -168,8 +173,8 @@ const readMoreDetails = async(news) => {
                     <P class="fw-semibold d-inline text-light">${total_view ? total_view+'M' : 'No data founds'}</p>
                 </div>
                 <div>
-                    <P class="fw-semibold text-warning">Ratings: ${rating.number}</p>
-                    <P class="fw-semibold text-warning">Badge: ${rating.badge}</p>
+                    <P class="fw-semibold text-warning">Ratings: ${rating.number ? rating.number : 'No data founds'}</p>
+                    <P class="fw-semibold text-warning">Badge: ${rating.badge ? rating.badge : 'No data founds'}</p>
                 </div>
             </div>
         </div>
