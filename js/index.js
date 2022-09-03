@@ -32,7 +32,7 @@ const displayCategories = async(categories) => {
 }
 
 // show how much news exist based on categories
-const foundNewsQuantity = async (news, categoryName) => {
+const foundNewsQuantity = async(news, categoryName) => {
     const foundTotalText = document.getElementById('found-total');
     const foundContainer = document.getElementById('found-container');
     const lenOfNews = news.length;
@@ -54,12 +54,13 @@ const showNews = async(newsCategoryId, categoryName) => {
         foundNewsQuantity(news, categoryName)
     }
     catch(err) {
-        console.log(err)
+        alert(`sorry, no data founds. please try again.`)
     }
 }
 
 // show category news
 const showCategoriesNews = async(news) => {
+
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = ``;
 
@@ -125,7 +126,7 @@ const progressSpinner = (isLoading) => {
 }
 
 // load news by id to show details
-const readMore = async (id) => {
+const readMore = async(id) => {
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
         const data = await res.json();
@@ -133,7 +134,7 @@ const readMore = async (id) => {
         readMoreDetails(detailsNews);
     }
     catch(err) {
-        console.log(err);
+        alert(`sorry, no data founds. please try again.`)
     }
 }
 
