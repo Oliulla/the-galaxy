@@ -14,6 +14,7 @@ const displayCategories = async(categories) => {
         
 
         const listLink = document.createElement('li');
+        listLink.classList.add('my-2')
         listLink.innerHTML = `<a onclick="showNews('${category_id}', '${category_name}')" class="text-decoration-none text-white link-hover px-3">${category_name}</a>`;
 
         categoriesContainer.appendChild(listLink);
@@ -27,11 +28,11 @@ const newsFoundDetail = async (news, categoryName) => {
     const foundContainer = document.getElementById('found-container');
     const lenOfNews = news.length;
     lenOfNews ? foundContainer.classList.remove('d-none') : foundContainer.classList.remove('d-none');
-    foundTotalText.innerText = `${lenOfNews} items found for category ${categoryName}`;
+    foundTotalText.innerText = `${lenOfNews} news found for ${categoryName}`;
 }
 
 const showNews = async(newsCategoryId, categoryName) => {
-    // console.log(typeof(newsCategoryId))
+    // console.log(newsCategoryId)
 
     const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${newsCategoryId}`);
     const data = await res.json();
@@ -148,5 +149,6 @@ const readMoreDetails = async(news) => {
     </div>
     `
 }
+showNews('08', 'All News')
 
 loadNewsCategories()
